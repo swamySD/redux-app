@@ -1,23 +1,37 @@
-import logo from './logo.svg';
+import { useState } from 'react';
+import { useDispatch } from 'react-redux';
+import { ages } from './store/reducer';
 import './App.css';
+import Header from './components/Header';
+import Posts from './components/posts';
 
 function App() {
+const [name,setName]=useState('')
+const [age,setAge]=useState('')
+  const dispatch=useDispatch()
+  
+  // const handleSumbit=()=>{
+  //   dispatch({type:'USER_NAME',payload:name})
+  // }
+ 
+ 
+   
+  const handleSumbitAge=()=>{
+    dispatch(ages(age))
+    dispatch({type:'USER_NAME',payload:name})
+  }
+
+
   return (
     <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+      <Posts/>
+      <Header/>
+      <div style={{height:'60px',width:'300px'}}>
+        <input type='text' onChange={(e)=>setName(e.target.value)} value={name} />
+        <input type='number' onChange={(e)=>setAge(e.target.value)} value={age} />
+        {/* <button type='submit' onClick={handleSumbit}>Submit</button> */}
+        <button type='submit' onClick={handleSumbitAge}>Submit</button>
+      </div>
     </div>
   );
 }
